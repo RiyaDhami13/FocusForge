@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>FocusForge</title>
+  </head>
+  <body>
+    <div id="header">
+      <div id="player-name">Hero</div>
+      <div id="level-display">Level1</div>
+
+      <div id="xp-bar-track">
+        <div id ="xp-bar">
+        </div>
+      </div>
+    
+      <div id = "stats">
+        <span id = "streak-display">Streak: 0</span>
+        <span id = "token-display">Tokens: 0</span>
+      </div>
+      </div>
+
+      <!--Active requests will be displayed here-->
+      <div id="active-quest">
+        <p>No quest selected</p>
+        <p id = "active-quest-name"></p>
+      </div>
+
+      <!--Timer-->
+      <div id="timer-section">
+        <div id="timer-ring">
+          <div id="timer-display">25:00</div>
+          <div id="timer-mode">FOCUS</div>
+        </div>
+
+        <div id ="timer-buttons">
+          <button onclick="startTimer()">Start</button>
+          <button onclick="pauseTimer()">Pause</button>
+          <button onclick="resetTimer()">Reset</button>
+        </div>"
+      </div>
+
+      <!--Message display-->
+      <div id ="message"></div>
+      <script src="app.js"></script>
+  </body>
+</html>
