@@ -114,3 +114,51 @@ nav a.active {
   border: 4px solid var(--ink);
 }
 
+#timer-mode {
+  font-size: 12px;
+  letter-spacing: 2px;
+  margin-top: 4px;
+  color:var(--ink);
+}
+
+#timer-buttons {
+  display: flex;
+  gap: 12px;
+}
+
+button {
+  padding: 10px 20px;
+  border: 2px solid var(--ink);
+  border-radius: 4px;
+  background: var(--surface);
+  font-size: 14px;
+  font-weight: bold;
+  cursor: pointer;
+  box-shadow: 3px, 3px 0 var(--ink);
+}
+
+button:active {
+  transform: translateY(2px);
+  box-shadow: 1px, 1px 0 var(--ink);
+}
+
+/*--Message--*/
+#message {
+  text-align: center;
+  margin-top: 20px;
+  font-size: 15px;
+  font-weight: bold;
+  color: var(--teal);
+  min-height: 24px;
+}
+
+/*pulse animation *--/
+@keyframes pulse {
+0% {opacity:1;}
+50% {opacity:0.6;}
+100% {opacity:1;}
+}
+
+.pulsing {
+  animation: pulse 1.5s infinite;
+}
