@@ -1,4 +1,14 @@
 // state
+let state = {
+  level:         1,
+  xp:            0,
+  streak:        0,
+  lastDate:      null,
+  tokens:        0,
+  quests:        [],
+  activeQuestId: null
+}
+
 let secondsLeft = 1500
 let isRunning = false
 let mode = "focus"
@@ -50,7 +60,7 @@ function onTimerComplete(){
   if(mode == "focus") {
     mode = "rest"
     secondsLeft = 300
-    document.getElementById("timer_mode").textContent = "Rest"
+    document.getElementById("timer_mode").textContent = "REST"
     showMessage("Rest time! You need a break!")
   } else {
     mode = "focus"
@@ -87,16 +97,68 @@ function highlightNav() {
   const current = window.location.pathname
   document.querySelectorAll("nav a").forEach(link => {
     if(link.getAttribute("href") === "index.html" &&
-    current.endsWith("index.html") || current.endsWith("/"))) {
+ ( current.endsWith("index.html") || current.endsWith("/"))) {
       link.classList.add("active")
     }
   })
 }
 
-//placeholders
-function loadState() {
-
+function loadState(){
+  const saved = localStorage.getItem("focusForge_v1")
+  if(saved) {
+    state = JSON.parse(saved)
+  }
 }
-function renderHeader() {
-  
+
+function saveState() {
+  localStorage.setItem("focusForge_v1",JSON.stringify(state))
+}
+
+function renderHeader(){
+  document.getElementById("level-display").textContent = "LVL" + state.level
+  document.getElementById("xp-display").textContent = "Streak:" + state.streak
+  document.getElementById("tokens-display").textContent = "Tokens:" + state.tokens
+  const pct = (state.xp/xpNeeded())*100
+  document.getElementById("xp-bar").style.width = pct +"%"
+}
+
+function xpNeeded() {
+  return 500 + (state.level -1) * 250
+}
+
+function awardXP(amount) {
+checkStreak()
+const multiplier = 1 + Math.min(state.streak,30) * 0.05
+const gained = Math.round(amount * multiplier)
+state.xp += gained
+state.tokens += Math.round(gained/100)
+while(state.xp>= xpNeeded()) {
+  state.xp -= xpNeeded()
+  state.level += 1
+  showMessage("Level Up! You are now level " + state.level)
+}
+saveState()
+renderHeader()
+}
+
+function getTodayString() {
+  return new Date().toISOString().slice(0,10)
+}
+
+function getYesterdayString() {
+  const d = new Date()
+  d.setDate(d.getDate()-1)
+  return d.toISOString().slice(0,10)
+}
+
+function checkStreak() {
+  const today = getTodayString()
+  const yesterday = getYesterdayString()
+  if(state.lastDate === today) {
+    return
+  } else if(state.lastDate === yesterday) {
+    state.streak += 1
+  } else {
+    state.streak = 0
+  }
 }
