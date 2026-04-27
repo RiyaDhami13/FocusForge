@@ -157,7 +157,8 @@ button:active {
   min-height: 24px;
 }
 
-/*pulse animation *--/
+/*--pulse animation --/
+
 @keyframes pulse {
 0% {opacity:1;}
 50% {opacity:0.6;}
@@ -167,3 +168,116 @@ button:active {
 .pulsing {
   animation: pulse 1.5s infinite;
 }
+
+/* -- QUEST FORM -- */
+#quest-form {
+  display: flex;
+  gap: 10px;
+  margin-bottom: 20px;
+  flex-wrap: wrap;
+}
+
+#quest-input {
+  flex: 1;
+  padding: 10px 14px;
+  border: 2px solid var(--ink);
+  border-radius: 4px;
+  font-size: 14px;
+  background: var(--surface);
+  min-width: 180px;
+}
+
+#difficulty-select {
+  padding: 10px 14px;
+  border: 2px solid var(--ink);
+  border-radius: 4px;
+  font-size: 14px;
+  background: var(--surface);
+  cursor: pointer;
+}
+
+/*--Quest card --*/
+.quest-card {
+  background: var(--surface);
+  border: 2px solid var(--ink);
+  border-radius: 8px;
+  padding : 14px 16px;
+  margin: 10px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 10px;
+  box-shadow: 3px 3px 0 var(--ink);
+}
+
+.quest-active {
+  border-color: var(--orange);
+  box-shadow: 3px 3px 0 var(--orange);
+}
+
+.quest-info {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  flex-wrap: wrap;
+}
+
+.quest-title {
+  font-size: 14px;
+  font-weight: bold;
+}
+
+.quest-badge {
+  font-size: 11px;
+  padding: 2px 8px;
+  border-radius: 99px;
+  font-weight: bold;
+  text-transform: uppercase;
+}
+
+.easy {background: #d4edda;  color: #155724;}
+.medium { background: #fff3cd; color: #856404; }
+.epic { background: #cce5ff; color: #004085; }
+.boss { background: #f8d7da; color: #721c24; }
+
+.quest-xp {
+  font-size: 12px;
+  font-weight: bold;
+  color: var(--teal)
+}
+
+.quest-actions {
+  display: flex;
+  gap: 8px;
+}
+
+.quest-actions button {
+  padding: 6px 12px;
+  border: 2px solid var(--ink);
+  border-radius: 8px;
+  padding: 20px;
+  margin-bottom: 20px;
+  line-height: 2;
+}
+
+#about-content h2 {
+  margin-bottom: 12px;
+  font-size: 18px;
+}
+
+#reset_action {
+  text-align: center;
+}
+
+#reset-section button {
+  background: var(--red);
+  color: white;
+  border-color: var(--ink);
+}
+
+#no-quests {
+  color: var(--dust);
+  text-align: center;
+  padding: 20px;
+}
+
