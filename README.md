@@ -2,7 +2,7 @@
 A productivity RPG — tasks are quests, focus sessions are battles.
 
 ## Live Demo
-https://YOURUSERNAME.github.io/focusforge
+https://github.com/RiyaDhami13/FocusForge
 
 ## Tech Stack
 HTML, CSS, JavaScript — no frameworks
