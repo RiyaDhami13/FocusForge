@@ -1,1 +1,45 @@
 <!DOCTYPE html>
+<html lang = "en">
+<head>
+  <meta charset ="UTF-8">
+  <meta name = "viewport" content = "width-device-width, initial-scale = 1.0">
+  <title> Focus Forge - Quest Log</title>
+  <link rel = "stylesheet" href = "style.css">
+</head>
+  <body>
+<nav>
+  <a href = "index.html">The Forge</a>
+  <a href = "quests.html" > Quest Log</a>
+  <a href = "about.html">About</a>
+</nav>
+<div id = "header">
+  <div id = "player-name">Hero</div>
+  <div id = "level-display">Level 1</div>
+  <div id="xp-bar"></div>
+    </div>
+    <div id="stats">
+      <span id="streak-display">Streak: 0</span>
+      <span id="token-display">Tokens: 0</span>
+    </div>
+  </div>
+</div>
+
+<div id = "quest-log">
+  <input type = "text" id = "quest-input" placeholder="Enter quest name..."/>
+  <select id = "difficulty-select">
+    <option value = "easy">Easy --50 XP</option>
+    <option value = "medium">Medium --100 XP</option>
+    <option value = "epic">Epic --350 XP</option>
+    <option value = "boss">Boss --800 XP</option>
+  </select>
+</div>
+
+<div id = "quest-list"></div>
+
+<div id = "message"></div>
+
+<script src = "app.js"></script>
+
+  </body>
+
+</html>
