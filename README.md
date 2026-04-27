@@ -1,7 +1,14 @@
-##📉 Frizz: Contextual Social Defense
-Stop the Rizz. Embrace the Frizz.
+# FocusForge
+A productivity RPG — tasks are quests, focus sessions are battles.
 
+## Live Demo
+https://YOURUSERNAME.github.io/focusforge
 
-Frizz is a Python-based AI tool designed to neutralize unwanted social energy. Whether it's a flirty DM or an overly enthusiastic message, Frizz uses Large Language Models (LLMs) to transform that "Rizz" into dry, bureaucratic, and perfectly boring corporate-speak.
+## Tech Stack
+HTML, CSS, JavaScript — no frameworks
 
-Built during the first semester of my Computer Engineering program, this project explores Natural Language Processing (NLP) and Computer Vision using the Streamlit framework.
+## How to Play
+1. Add quests in Quest Log
+2. Target a quest
+3. Start a focus session
+4. Complete sessions and quests to earn XP and level up
