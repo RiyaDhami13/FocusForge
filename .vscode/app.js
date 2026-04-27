@@ -16,8 +16,11 @@ let timerInterval = null
 
 // on page load
 loadState()
+seedQuests()
 renderHeader()
 updateDisplay()
+updateActiveQuestDisplay()
+renderQuests()
 highlightNav()
 
 //Timer functions
@@ -60,8 +63,9 @@ function onTimerComplete(){
   if(mode == "focus") {
     mode = "rest"
     secondsLeft = 300
-    document.getElementById("timer_mode").textContent = "REST"
+    document.getElementById("timer-mode").textContent = "REST"
     showMessage("Rest time! You need a break!")
+    awardXP(250)
   } else {
     mode = "focus"
     secondsLeft = 1500
@@ -116,8 +120,8 @@ function saveState() {
 
 function renderHeader(){
   document.getElementById("level-display").textContent = "LVL" + state.level
-  document.getElementById("xp-display").textContent = "Streak:" + state.streak
-  document.getElementById("tokens-display").textContent = "Tokens:" + state.tokens
+  document.getElementById("streak-display").textContent = "Streak:" + state.streak
+  document.getElementById("token-display").textContent = "Tokens:" + state.tokens
   const pct = (state.xp/xpNeeded())*100
   document.getElementById("xp-bar").style.width = pct +"%"
 }
@@ -131,7 +135,7 @@ checkStreak()
 const multiplier = 1 + Math.min(state.streak,30) * 0.05
 const gained = Math.round(amount * multiplier)
 state.xp += gained
-state.tokens += Math.round(gained/100)
+state.tokens += Math.round(gained/10)
 while(state.xp>= xpNeeded()) {
   state.xp -= xpNeeded()
   state.level += 1
@@ -161,4 +165,5 @@ function checkStreak() {
   } else {
     state.streak = 0
   }
+  state.lastDate = today
 }
