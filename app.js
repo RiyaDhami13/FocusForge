@@ -16,12 +16,12 @@ let timerInterval = null
 
 // on page load
 loadState()
-seedQuests()
-renderHeader()
-updateDisplay()
-updateActiveQuestDisplay()
-renderQuests()
-highlightNav()
+try { seedQuests() } catch(e) {}
+try { renderHeader() } catch(e) {}
+try { updateDisplay() } catch(e) {}
+try { updateActiveQuestDisplay() } catch(e) {}
+try { renderQuests() } catch(e) {}
+try { highlightNav() } catch(e) {}
 
 //Timer functions
 function startTimer() {
