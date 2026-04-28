@@ -168,6 +168,16 @@ function checkStreak() {
   state.lastDate = today
 }
 
+let state = {
+  level:         1,
+  xp:            0,
+  streak:        0,
+  lastDate:      null,
+  tokens:        0,
+  quests:        [],
+  activeQuestId: null
+}
+
 const XP_REWARDS = {
   easy:   50,
   medium: 150,
