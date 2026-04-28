@@ -84,8 +84,8 @@ function updateDisplay() {
   document.getElementById("timer-display").textContent = timeString
 
   const total = mode == "focus" ? 1500:300
-  const elasped = total - secondsLeft
-  const pct = (elasped /total) *100
+  const elapsed = total - secondsLeft
+  const pct = (elapsed /total) *100
   document.getElementById("timer-ring").style.setProperty("--progress",pct + "%")
 }
 
@@ -166,16 +166,6 @@ function checkStreak() {
     state.streak = 0
   }
   state.lastDate = today
-}
-
-let state = {
-  level:         1,
-  xp:            0,
-  streak:        0,
-  lastDate:      null,
-  tokens:        0,
-  quests:        [],
-  activeQuestId: null
 }
 
 const XP_REWARDS = {
