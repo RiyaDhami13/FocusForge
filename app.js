@@ -167,3 +167,116 @@ function checkStreak() {
   }
   state.lastDate = today
 }
+
+const XP_REWARDS = {
+  easy:   50,
+  medium: 150,
+  epic:   350,
+  boss:   800
+}
+
+function handleAddQuest() {
+  const title      = document.getElementById("quest-input").value.trim()
+  const difficulty = document.getElementById("difficulty-select").value
+  if (title === "") {
+    showMessage("Please enter a quest name!")
+    return
+  }
+  addQuest(title, difficulty)
+  document.getElementById("quest-input").value = ""
+}
+
+function addQuest(title, difficulty) {
+  const quest = {
+    id:         Date.now(),
+    title:      title,
+    difficulty: difficulty,
+    xpReward:   XP_REWARDS[difficulty],
+    completed:  false
+  }
+  state.quests.push(quest)
+  saveState()
+  renderQuests()
+}
+
+function completeQuest(id) {
+  const quest = state.quests.find(q => q.id === id)
+  if (!quest || quest.completed) return
+  quest.completed = true
+  awardXP(quest.xpReward)
+  showMessage("Quest complete! +" + quest.xpReward + " XP")
+  renderQuests()
+}
+
+function selectQuest(id) {
+  state.activeQuestId = id
+  saveState()
+  renderQuests()
+  updateActiveQuestDisplay()
+}
+
+function removeQuest(id) {
+  state.quests = state.quests.filter(q => q.id !== id)
+  saveState()
+  renderQuests()
+}
+
+function renderQuests() {
+  const container = document.getElementById("quest-list")
+  if (!container) return
+  container.innerHTML = ""
+  const open = state.quests.filter(q => !q.completed)
+  if (open.length === 0) {
+    container.innerHTML = "<p id='no-quests'>No quests yet. Add one above!</p>"
+    return
+  }
+  open.forEach(quest => {
+    const card = document.createElement("div")
+    card.className = "quest-card"
+    if (quest.id === state.activeQuestId) {
+      card.classList.add("quest-active")
+    }
+    card.innerHTML = `
+      <div class="quest-info">
+        <span class="quest-title">${quest.title}</span>
+        <span class="quest-badge ${quest.difficulty}">${quest.difficulty}</span>
+        <span class="quest-xp">+${quest.xpReward} XP</span>
+      </div>
+      <div class="quest-actions">
+        <button onclick="selectQuest(${quest.id})">Target</button>
+        <button onclick="completeQuest(${quest.id})">Complete</button>
+        <button onclick="removeQuest(${quest.id})">✕</button>
+      </div>
+    `
+    container.appendChild(card)
+  })
+}
+
+function updateActiveQuestDisplay() {
+  const el = document.getElementById("active-quest-name")
+  if (!el) return
+  const quest = state.quests.find(q => q.id === state.activeQuestId)
+  if (quest) {
+    el.textContent = quest.title
+    document.getElementById("active-quest").querySelector("p").textContent = "Current Target:"
+  } else {
+    el.textContent = ""
+    const p = document.getElementById("active-quest")
+    if (p) p.querySelector("p").textContent = "No quest selected"
+  }
+}
+
+function seedQuests() {
+  if (state.quests.length > 0) return
+  addQuest("Set up your workspace", "easy")
+  addQuest("Finish the assignment", "medium")
+  addQuest("Build FocusForge", "boss")
+}
+
+function resetProgress() {
+  const confirmed = window.confirm("Wipe all progress? This cannot be undone.")
+  if (confirmed) {
+    localStorage.removeItem("focusforge_v1")
+    window.location.href = "index.html"
+  }
+}
