@@ -119,6 +119,7 @@ function saveState() {
 }
 
 function renderHeader(){
+  document.getElementById("player-name").textContent = state.playerName || "Hero"
   document.getElementById("level-display").textContent = "LVL" + state.level
   document.getElementById("streak-display").textContent = "Streak:" + state.streak
   document.getElementById("token-display").textContent = "Tokens:" + state.tokens
@@ -278,5 +279,16 @@ function resetProgress() {
   if (confirmed) {
     localStorage.removeItem("focusforge_v1")
     window.location.href = "index.html"
+  }
+}
+
+function editName() {
+  const current = state.playerName || "Hero"
+  const newName = prompt("Enter your name:",current)
+  if (newName && newName.trim() !== "") {
+    state.playerName = newName.trim()
+    saveState()
+    document.getElementById("player-name").textContent = state.playerName
+
   }
 }
