@@ -71,6 +71,7 @@ function onTimerComplete(){
     secondsLeft = 1500
     document.getElementById("timer-mode").textContent = "FOCUS"
     showMessage("Battle Ready! Start when you are ready!")
+    playSound("rest")
   }
   updateDisplay()
 }
@@ -141,8 +142,10 @@ while(state.xp>= xpNeeded()) {
   state.xp -= xpNeeded()
   state.level += 1
   showMessage("Level Up! You are now level " + state.level)
+  playSound("levelup")
 }
 saveState()
+playSound("xp")
 renderHeader()
 }
 
@@ -206,6 +209,7 @@ function completeQuest(id) {
   quest.completed = true
   awardXP(quest.xpReward)
   showMessage("Quest complete! +" + quest.xpReward + " XP")
+  playSound("complete")
   renderQuests()
 }
 
@@ -291,4 +295,52 @@ function editName() {
     document.getElementById("player-name").textContent = state.playerName
 
   }
+}
+
+function playSound(type) {
+  const ctx = new(window.AudioContext || window.webkitAudioContext)()
+const oscillator = ctx.createOscillator()
+const gain = ctx.createGain()
+
+oscillator.connect(gain)
+gain.connect(ctx.destination)
+
+if (type === "xp") {
+  oscillator.frequency.setValueAtTime(420, ctx.currentTime)
+  oscillator.frequency.setValueAtTime(660,  ctx.currentTime + 0.1)
+  gain.gain.setValueAtTime(0.3,ctx.currentTime)
+  gain.gain.exponentialRampToValueAtTime(0.001, ctx.currentTime + 0.3)
+  oscillator.start(ctx.currentTime)
+  oscillator.stop(ctx.currentTime + 0.3)
+}
+
+if(type === "levelup") {
+  oscillator.frequency.setValueAtTime(400, ctx.currentTime)
+  oscillator.frequency.setValueAtTime(600,  ctx.currentTime + 0.1)
+  oscillator.frequency.setValueAtTime(800, ctx.currentTime + 0.2)
+  gain.gain.setValueAtTime(0.4, ctx.currentTime)
+  gain.gain.exponentialRampToValueAtTime(0.001, ctx.currentTime + 0.5)
+  oscillator.start(ctx.currentTime)
+  oscillator.stop(ctx.currentTime + 0.5)
+}
+
+if(type === "complete") {
+  oscillator.frequency.setValueAtTime(300, ctx.currentTime)
+  oscillator.frequency.setValueAtTime(500, ctx.currentTime + 0.15)
+  oscillator.frequency.setValueAtTime(700, ctx.currentTime + 0.3)
+  gain.gain.setValueAtTime(0.3, ctx.currentTime)
+  gain.gain.exponentialRampToValueAtTime(0.001, ctx.currentTime + 0.5)
+  oscillator.start(ctx.currentTime)
+  oscillator.stop(ctx.currentTime + 0.5)
+}
+
+if(type === "rest") {
+  oscillator.type = "sine"
+  oscillator.frequency.setValueAtTime(250, ctx.currentTime)
+  oscillator.frequency.setValueAtTime(200, ctx.currentTime + 0.2)
+  gain.gain.setValueAtTime(0.2, ctx.currentTime)
+  gain.gain.exponentialRampToValueAtTime(0.001, ctx.currentTime + 0.4)
+  oscillator.start(ctx.currentTime)
+  oscillator.stop(ctx.currentTime + 0.4)
+}
 }
