@@ -29,12 +29,14 @@ function startTimer() {
 isRunning = true
 document.getElementById("timer-ring").classList.add("pulsing")
 timerInterval = setInterval(tick,1000)
+checkBossMode()
 }
 
 function pauseTimer() {
   clearInterval(timerInterval)
   isRunning = false
   document.getElementById("timer-ring").classList.remove("pulsing")
+  document.body.classList.remove("boss-mode")
 }
 
 function resetTimer() {
@@ -45,6 +47,7 @@ function resetTimer() {
   document.getElementById("timer-ring").classList.remove("pulsing")
   document.getElementById("timer-mode").textContent = "Focus"
   updateDisplay()
+  document.body.classList.remove("boss-mode")
 }
 
 function tick() {
@@ -218,6 +221,7 @@ function selectQuest(id) {
   saveState()
   renderQuests()
   updateActiveQuestDisplay()
+  checkBossMode()
 }
 
 function removeQuest(id) {
@@ -344,3 +348,12 @@ if(type === "rest") {
   oscillator.stop(ctx.currentTime + 0.4)
 }
 }
+
+function checkBossMode() {
+  const activeQuest = state.quests.find(q => q.id === state.activeQuestId)
+  if (activeQuest && activeQuest.difficulty === "boss" && isRunning) {
+    document.body.classList.add("boss-mode")
+  } else {
+    document.body.classList.remove("boss-mode")
+  }
+  }

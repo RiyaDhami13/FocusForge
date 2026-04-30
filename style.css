@@ -152,7 +152,7 @@ button:active {
   min-height: 24px;
 }
 
-/*pulse animation *--/
+/* ── pulse animation ── */
 @keyframes pulse {
 0% {opacity:1;}
 50% {opacity:0.6;}
@@ -161,4 +161,34 @@ button:active {
 
 .pulsing {
   animation: pulse 1.5s infinite;
+}
+
+/* --BOSS BATTLE MODE --*/
+.boss-mode #timer-ring {
+  border-color: var(--red);
+  background: conic-gradient(var(--red) var(--progress,0%), var(--dust) 0%);
+}
+
+.boss-mode #timer-mode {
+  color: var(--red);
+  font-weight: bold;
+}
+
+.boss-mode nav {
+  background: var(--red);
+}
+
+.boss-mode nav a {
+  color:white;
+  border-color:white;
+}
+
+@keyframes boss-pulse {
+  0% {box-shadow: 0 0 0px var(--red);}
+  50% {box-shadow: 0 0 20px var(--red);}
+  100% {box-shadow: 0 0 0px var(--red);}
+}
+
+.boss-mode #timer-ring {
+  animation: boss-pulse 1.5s infinite;
 }
