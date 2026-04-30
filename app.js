@@ -213,7 +213,9 @@ function completeQuest(id) {
   awardXP(quest.xpReward)
   showMessage("Quest complete! +" + quest.xpReward + " XP")
   playSound("complete")
+  saveState()
   renderQuests()
+  renderCompletedQuests()
 }
 
 function selectQuest(id) {
@@ -237,6 +239,8 @@ function renderQuests() {
   const open = state.quests.filter(q => !q.completed)
   if (open.length === 0) {
     container.innerHTML = "<p id='no-quests'>No quests yet. Add one above!</p>"
+  }
+  renderCompletedQuests()
     return
   
   renderCompletedQuests()
@@ -261,7 +265,7 @@ function renderQuests() {
     `
     container.appendChild(card)
   })
-}
+
 
 function updateActiveQuestDisplay() {
   const el = document.getElementById("active-quest-name")
