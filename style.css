@@ -192,3 +192,17 @@ button:active {
 .boss-mode #timer-ring {
   animation: boss-pulse 1.5s infinite;
 }
+
+#completed-section {
+  margin-top: 24px;
+}
+
+#completed-section h3 {
+  font-size: 14px;
+  color: var(--ink);
+  margin-bottom: 10px;
+  padding: 10px 14px;
+  background: var(--dust);
+  border-radius: 4px;
+  border: 1px solid var(--ink);
+}

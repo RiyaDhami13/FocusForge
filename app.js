@@ -238,6 +238,8 @@ function renderQuests() {
   if (open.length === 0) {
     container.innerHTML = "<p id='no-quests'>No quests yet. Add one above!</p>"
     return
+  
+  renderCompletedQuests()
   }
   open.forEach(quest => {
     const card = document.createElement("div")
@@ -357,3 +359,42 @@ function checkBossMode() {
     document.body.classList.remove("boss-mode")
   }
   }
+
+function renderCompletedQuests() {
+  const container = document.getElementById("completed-list")
+  if(!container) return
+
+  container.innerHTML = ""
+
+  const done = state.quests.filter(q => q.completed)
+  if(done.length === 0) {
+    container.innerHTML = "<p style = 'color:var(--dust); padding:10px'>No completed quests yet.</p>"
+    return
+  }
+  done.forEach(quest => {
+    const card = document.createElement("div")
+    card.className = "quest-card"
+    card.style.opacity = "0.5"
+    card.innerHTML =  `
+    <div class="quest-info">
+      <span class= "quest-title" style = "text-decoration:line-through">${quest.title}</span>
+      <span class = "quest-badge ${quest.difficulty}">${quest.difficulty}</span>
+      <span class="quest-xp">+${quest.xpReward} XP ✓</span>
+    </div>
+      `
+      container.appendChild(card)
+  })
+}
+
+function toggleCompleted() {
+  const list = document.getElementById("completed-list")
+  const toggle = document.getElementById("completed-toggle")
+  if (list.style.display === "none") {
+    list.style.display = "block"
+    toggle.textContent = "▼"
+  } else {
+    list.style.display = "none"
+    toggle.textContent = "►"
+  }
+}
+
